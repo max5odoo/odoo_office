@@ -80,3 +80,11 @@ class Students(models.Model):
         for lead in self:
             if lead.professor_choose:
                 lead.students_professor_id = lead.professor_choose.pro_id
+
+
+    @api.model
+    def create(self, values):
+        student_data=super(Students, self).create(values)
+        print(f"\n\nstudent - - {student_data}\n\n\n")
+        return student_data
+
