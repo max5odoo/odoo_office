@@ -82,9 +82,19 @@ class Students(models.Model):
                 lead.students_professor_id = lead.professor_choose.pro_id
 
 
-    @api.model
-    def create(self, values):
-        student_data=super(Students, self).create(values)
-        print(f"\n\nstudent - - {student_data}\n\n\n")
-        return student_data
+    # @api.model
+    # def create(self, values):
+    #     student_data=super(Students, self).create(values)
+    #     print(f"\n\nstudent - - {student_data}\n\n\n")
+    #     return student_data
 
+    @api.model
+    def create(self, vals):
+        print(f"student vals {vals}")
+        clg_student = super(Students, self).create(vals)
+        course_dt = self.env['professor.professor'].create(
+            {'name': 'Manthan sir '})
+        vals['rollno'] = 10
+        clg_student.write(vals)
+        print(course_dt)
+        return clg_students
