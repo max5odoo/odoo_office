@@ -32,4 +32,5 @@ class button_action_demo(models.Model):
         # self.password_search=search_read[0].get('password')
         # print(f"\n\n\nsearch_read {search_read}\n\n\n")
         read_first = self.env['button.demo'].search([('name','=','manthan')]).read(['password'])
+        self.password_search=str(read_first[2].get('password'))
         print(f"\n\n\nsearch_read {read_first}\n\n\n")

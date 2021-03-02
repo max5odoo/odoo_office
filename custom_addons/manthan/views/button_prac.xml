@@ -6,7 +6,7 @@
             <field name="model">button.demo</field>
             <field name="arch" type="xml">
                 <form string="Button record">
-
+                    <sheet>
                     <button string="Generate name" type="object" name="search_func" class="oe_highlight"/>
 
 
@@ -16,6 +16,8 @@
                         <field name="name"/>
                         <field name="password_search"/>
                     </group>
+                    </sheet>
+
                 </form>
             </field>
         </record>
