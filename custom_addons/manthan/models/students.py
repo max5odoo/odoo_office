@@ -87,29 +87,30 @@ class Students(models.Model):
     #     print(f"\n\nstudent - - {student_data}\n\n\n")
     #     return student_data
 
-    @api.model
-    def create(self, vals):
-        print(f"student vals {vals}")
-        clg_student = super(Students, self).create(vals)
-        course_dt = self.env['professor.professor'].create(
-            {'name': 'Manthan sir '})
-        vals['rollno'] = 10
-        clg_student.write(vals)
-        print('hello')
-        return clg_student
-
-    def write(self, vals):
-        vals['student_email'] = 'aktiv@gmail.com'
-        clg_up_student = super(Students, self).write(vals)
-        print(f"\n\n\n\n{clg_up_student}\n\n\n\n\n")
-        return clg_up_student
-
+    # @api.model
+    # def create(self, vals):
+    #     print(f"student vals {vals}")
+    #     clg_student = super(Students, self).create(vals)
+    #     course_dt = self.env['professor.professor'].create(
+    #         {'name': 'Manthan sir '})
+    #     vals['rollno'] = 10
+    #     clg_student.write(vals)
+    #     print('hello')
+    #     return clg_student
+    #
+    # def write(self, vals):
+    #     vals['student_email'] = 'aktiv@gmail.com'
+    #     clg_up_student = super(Students, self).write(vals)
+    #     print(f"\n\n\n\n{clg_up_student}\n\n\n\n\n")
+    #     return clg_up_student
+    #
     def search_func(self):
         # search
-        search_res = self.env['student.student'].search(
-            [('gender', '=', 'male')])
-        print(f"\n\n\n search() res : {search_res} \n\n\n")
-        # search_count
-        search_cnt = self.env['student.student'].search_count(
-            ['', ])
-        print(f"\n\n\nsearch_cnt {search_cnt}\n\n\n")
+        # search_res = self.env['student.student'].search(
+        #     [('gender', '=', 'male')])
+        # print(f"\n\n\n search() res : {search_res} \n\n\n")
+        # # search_count
+        # search_cnt = self.env['student.student'].search_count(
+        #     ['', ])
+        search_read = self.search_read([('name', '=', 'manthan')], fields=['student_email'])
+        print(f"\n\n\nsearch_read {search_read}\n\n\n")

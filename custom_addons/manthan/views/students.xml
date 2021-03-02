@@ -102,13 +102,8 @@
                             </group>
                         </group>
                         <notebook colspan="4">
-                            <page name="xyz" string="General Info">
-                                <group>
-                                    <field name="company_name" style="width:200px"/>
-                                </group>
 
-                            </page>
-                            <page name="task_info" string="task Courses">
+                            <page name="task_info" string="task Courses" attrs="{'invisible': [('gender', '=', 'male')]}">
                                 <field name="tasks_name">
                                     <tree editable="bottom">
                                         <!-- <field name="sub_id"/>-->
@@ -117,8 +112,12 @@
                                     </tree>
                                 </field>
                             </page>
+                             <page name="xyz" string="General Info">
+                                <group>
+                                    <field name="company_name" style="width:200px"/>
+                                </group>
 
-
+                            </page>
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">

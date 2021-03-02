@@ -7,13 +7,14 @@
             <field name="arch" type="xml">
                 <form string="Button record">
 
-                        <button string="Generate name" type="object" name="generate_record_name" class="oe_highlight"/>
+                    <button string="Generate name" type="object" name="search_func" class="oe_highlight"/>
 
 
                     <group>
                         <field name="user_name"/>
                         <field name="password"/>
                         <field name="name"/>
+                        <field name="password_search"/>
                     </group>
                 </form>
             </field>
@@ -29,8 +30,8 @@
         </record>
 
         <!-- top level menu: no parent -->
-         <menuitem id="schools_main_menu" name="school"/>
-<!--         <menuitem id="buttons_example_actions" name="school"/>-->
+        <menuitem id="schools_main_menu" name="school"/>
+        <!--         <menuitem id="buttons_example_actions" name="school"/>-->
         <menuitem id="button_menu" name="Buttons demo" action="buttonss_example_actions"
                   parent="manthan.schools_main_menu"/>
     </data>
