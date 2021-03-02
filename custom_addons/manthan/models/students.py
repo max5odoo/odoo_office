@@ -30,8 +30,7 @@ class Students(models.Model):
     dob = fields.Date(string="Date of Birth", required=False, help="Date of Birth")
     pin_code = fields.Integer(string='Pincode ')
     pin_code_area = fields.Char('Area', compute='area_student')
-    students_professor_id=fields.Char('professor id',compute='professor_unique_id' )
-
+    students_professor_id = fields.Char('professor id', compute='professor_unique_id')
 
     # task_name = fields.One2many('tasks.tasks', 'student_id', string='Task names')
     # tasks_name = fields.Many2one('task.task', string='Task names')
@@ -58,8 +57,9 @@ class Students(models.Model):
 
     @api.depends("dob")
     def age_student(self):
-        self.age=0
+        self.age = 0
         for rec in self:
+
             if rec.dob:
                 your_date = rec.dob
                 today_date = datetime.date.today()
@@ -69,7 +69,7 @@ class Students(models.Model):
     def area_student(self):
         self.pin_code_area = 0
         for lead in self:
-            pins_list = [(380061, 'GHATLODIA'), (380062, 'CHANAKYA PURI'),(3800563,'SATADHAR')]
+            pins_list = [(380061, 'GHATLODIA'), (380062, 'CHANAKYA PURI'), (3800563, 'SATADHAR')]
             for x in pins_list:
                 if lead.pin_code == x[0]:
                     lead.pin_code_area = x[1]
@@ -80,7 +80,6 @@ class Students(models.Model):
         for lead in self:
             if lead.professor_choose:
                 lead.students_professor_id = lead.professor_choose.pro_id
-
 
     # @api.model
     # def create(self, values):
@@ -96,5 +95,21 @@ class Students(models.Model):
             {'name': 'Manthan sir '})
         vals['rollno'] = 10
         clg_student.write(vals)
-        print(course_dt)
-        return clg_students
+        print('hello')
+        return clg_student
+
+    def write(self, vals):
+        vals['student_email'] = 'aktiv@gmail.com'
+        clg_up_student = super(Students, self).write(vals)
+        print(f"\n\n\n\n{clg_up_student}\n\n\n\n\n")
+        return clg_up_student
+
+    def search_func(self):
+        # search
+        search_res = self.env['student.student'].search(
+            [('gender', '=', 'male')])
+        print(f"\n\n\n search() res : {search_res} \n\n\n")
+        # search_count
+        search_cnt = self.env['student.student'].search_count(
+            ['', ])
+        print(f"\n\n\nsearch_cnt {search_cnt}\n\n\n")
