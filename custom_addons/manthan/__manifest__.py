@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'website', 'mail'],
+    'depends': ['base', 'website', 'mail','sale'],
 
     # always loaded
     'data': [
@@ -28,6 +28,7 @@
         'views/students.xml',
         'views/professor.xml',
         'views/button_prac.xml',
+        'views/sale_order_updates.xml'
 
 
     ],
