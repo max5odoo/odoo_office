@@ -114,3 +114,16 @@ class Students(models.Model):
         #     ['', ])
         search_read = self.search_read([('name', '=', 'manthan')], fields=['student_email'])
         print(f"\n\n\nsearch_read {search_read}\n\n\n")
+
+    def button_employee(self):
+        return {
+            'name': ('professor'),
+
+            'view_type': 'form',
+
+            'view_mode': 'tree,form',
+
+            'res_model': 'professor.professor',
+
+            'type': 'ir.actions.act_window',
+        }

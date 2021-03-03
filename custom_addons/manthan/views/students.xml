@@ -60,6 +60,12 @@
             <field name="arch" type="xml">
                 <form string="student">
                     <sheet>
+                        <div class="oe_button_box">
+
+                            <button class="oe_stat_button" name="button_employee" string="Professor Page"
+                                    type="object" icon="fa-edit"/>
+
+                        </div>
                         <div class="oe_button_box" name="button_box"/>
 
                         <widget attrs="{'invisible': [('active', '=', True)]}" bg_color="bg-danger"
@@ -103,7 +109,8 @@
                         </group>
                         <notebook colspan="4">
 
-                            <page name="task_info" string="task Courses" attrs="{'invisible': [('gender', '=', 'male')]}">
+                            <page name="task_info" string="task Courses"
+                                  attrs="{'invisible': [('gender', '=', 'male')]}">
                                 <field name="tasks_name">
                                     <tree editable="bottom">
                                         <!-- <field name="sub_id"/>-->
@@ -112,7 +119,7 @@
                                     </tree>
                                 </field>
                             </page>
-                             <page name="xyz" string="General Info">
+                            <page name="xyz" string="General Info">
                                 <group>
                                     <field name="company_name" style="width:200px"/>
                                 </group>
