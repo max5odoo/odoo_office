@@ -10,7 +10,7 @@ class Students(models.Model):
     _name = 'student.student'
     _description = 'student description'
     _inherit = ['website.published.mixin', 'mail.thread', 'mail.activity.mixin']
-    _sql_constraints = [('unique_name', 'unique(name)', 'it already exits..')]
+    # _sql_constraints = [('unique_name', 'unique(name)', 'it already exits..')]
 
     name = fields.Char('name', required=True)
     address = fields.Char('address')
@@ -49,12 +49,28 @@ class Students(models.Model):
                     raise ValidationError("mobile no. size must be 10.")
 
     @api.constrains("name")
-    def unique_name(self):
-        obj=0
-        for record in self:
-            obj = self.search([('name', '=', record.name), ('id', '!=', record.id)])
-            if obj:
-                raise ValidationError("name must be unique..")
+    def search_name_student(self):
+
+        searh_name_manthan = self.search(
+            [('name', '!=', 'maxy')])
+        print(f'\n\n\n\n\n{searh_name_manthan}\n\n\n')
+        if searh_name_manthan:
+            print("\n\n\n\n if ma jay che bete..\n\n\n")
+            self.env['professor.professor'].create({
+                'name': 'raja',
+                'address': 'xyzabc',
+                'pro_id': 505,
+            })
+        else:
+            print("\n\n\n\n else ma bhi jay che\n\n\n")
+
+    # @api.constrains("name")
+    # def unique_name(self):
+    #     obj=0
+    #     for record in self:
+    #         obj = self.search([('name', '=', record.name), ('id', '!=', record.id)])
+    #         if obj:
+    #             raise ValidationError("name must be unique..")
 
     @api.onchange("name")
     def _compute_name(self):
