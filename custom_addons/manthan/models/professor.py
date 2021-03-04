@@ -16,8 +16,9 @@ class Professor(models.Model):
 
     @api.constrains("phoneno")
     def check_mobile_no(self):
-        if not self.phoneno.isdigit():
-            raise ValidationError("Please enter valid mobile no.")
-        else:
-            if len(self.phoneno) != 10:
-                raise ValidationError("mobile no. size must be 10.")
+        if str(self.phoneno) != 'False':
+            if not str(self.phoneno).isdigit():
+                raise ValidationError("Please enter valid mobile no.")
+            else:
+                if len(str(self.phoneno).strip()) != 10:
+                    raise ValidationError("mobile no. size must be 10.")
