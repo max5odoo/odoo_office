@@ -80,6 +80,7 @@
                                 <field name="professor_choose" options="{'no_create_edit': True,'no_create': True}"/>
                                 <field name="student_signature" widget="signature"/>
                                 <field name="active" widget="boolean_button"/>
+                                <field name="professor_id_read_only"/>
 
 
                                 <!--                                <field name="tasks_name"/>-->
@@ -109,8 +110,8 @@
                         </group>
                         <notebook colspan="4">
 
-                            <page name="task_info" string="task Courses"
-                                  attrs="{'invisible': [('gender', '=', 'male')]}">
+                            <page name="task_info" string="task Courses">
+<!--                                  attrs="{'invisible': [('gender', '=', 'male')]}">-->
                                 <field name="tasks_name">
                                     <tree editable="bottom">
                                         <!-- <field name="sub_id"/>-->

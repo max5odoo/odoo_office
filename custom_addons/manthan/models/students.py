@@ -10,6 +10,7 @@ class Students(models.Model):
     _name = 'student.student'
     _description = 'student description'
     _inherit = ['website.published.mixin', 'mail.thread', 'mail.activity.mixin']
+    _sql_constraints = [('unique_name', 'unique(name)', 'it already exits..')]
 
     name = fields.Char('name', required=True)
     address = fields.Char('address')
@@ -20,6 +21,7 @@ class Students(models.Model):
     company_name = fields.Char("Company Name", placeholder="enter the comapny name")
     student_email = fields.Char()
     professor_choose = fields.Many2one('professor.professor', string='Professor')
+    professor_id_read_only = fields.Char(related='professor_choose.address', string='Changable address ', readonly=True)
     student_signature = fields.Binary(string='Signature')
     active = fields.Boolean(default=True)
     handle_widget = fields.Integer()
@@ -45,6 +47,14 @@ class Students(models.Model):
             else:
                 if len(str(self.phoneno).strip()) != 10:
                     raise ValidationError("mobile no. size must be 10.")
+
+    @api.constrains("name")
+    def unique_name(self):
+        obj=0
+        for record in self:
+            obj = self.search([('name', '=', record.name), ('id', '!=', record.id)])
+            if obj:
+                raise ValidationError("name must be unique..")
 
     @api.onchange("name")
     def _compute_name(self):
@@ -119,11 +129,13 @@ class Students(models.Model):
         return {
             'name': ('professor'),
 
-            'view_type': 'form',
+            # 'view_type': 'tree',
 
             'view_mode': 'tree,form',
 
             'res_model': 'professor.professor',
 
-            'type': 'ir.actions.act_window',
+            'domain': [('pro_id', '=', 5)],
+
+            'type': 'ir.actions.act_window',  # this is predefined in odoo for redirection purpose aa fixed hoyy hamesha
         }
