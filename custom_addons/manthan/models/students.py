@@ -26,7 +26,7 @@ class Students(models.Model):
     active = fields.Boolean(default=True)
     handle_widget = fields.Integer()
     task_tech = fields.Many2one('tasks.tasks', string='task technologies')
-    tasks_name = fields.One2many('tasks.tasks', 'student_id', string='Task names')
+    tasks_id = fields.One2many('tasks.tasks', 'student_id', string='Task names')
     student_compute = fields.Char('Invitation ', compute='_compute_name')
     age = fields.Integer("Age of student", compute='age_student', store=False)
     dob = fields.Date(string="Date of Birth", required=False, help="Date of Birth")
@@ -48,21 +48,21 @@ class Students(models.Model):
                 if len(str(self.phoneno).strip()) != 10:
                     raise ValidationError("mobile no. size must be 10.")
 
-    @api.constrains("name")
-    def search_name_student(self):
-
-        searh_name_manthan = self.search(
-            [('name', '!=', 'maxy')])
-        print(f'\n\n\n\n\n{searh_name_manthan}\n\n\n')
-        if searh_name_manthan:
-            print("\n\n\n\n if ma jay che bete..\n\n\n")
-            self.env['professor.professor'].create({
-                'name': 'raja',
-                'address': 'xyzabc',
-                'pro_id': 505,
-            })
-        else:
-            print("\n\n\n\n else ma bhi jay che\n\n\n")
+    # @api.constrains("name")
+    # def search_name_student(self):
+    #
+    #     searh_name_manthan = self.search(
+    #         [('name', '!=', 'maxy')])
+    #     print(f'\n\n\n\n\n{searh_name_manthan}\n\n\n')
+    #     if searh_name_manthan:
+    #         print("\n\n\n\n if ma jay che bete..\n\n\n")
+    #         self.env['professor.professor'].create({
+    #             'name': 'raja',
+    #             'address': 'xyzabc',
+    #             'pro_id': 505,
+    #         })
+    #     else:
+    #         print("\n\n\n\n else ma bhi jay che\n\n\n")
 
     # @api.constrains("name")
     # def unique_name(self):
@@ -155,3 +155,8 @@ class Students(models.Model):
 
             'type': 'ir.actions.act_window',  # this is predefined in odoo for redirection purpose aa fixed hoyy hamesha
         }
+
+
+    @api.model
+    def create(self, values):
+        return self.env
