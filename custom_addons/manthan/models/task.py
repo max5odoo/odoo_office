@@ -18,7 +18,7 @@ class task(models.Model):
     task_technology = fields.Char(string='Task Technology Used')
     student_id = fields.Many2one('student.student',string='Student')
     task_name = fields.Char(string='Task Name')
-    #task_technology = fields.Char(string='Task Technology Used')
+    # task_technology = fields.Char(string='Task Technology Used')
     # task_done = fields.Boolean()
     # task_not_done = fields.Boolean()
     # task_start_time = fields.Datetime(string='Task Start Date', required=False)

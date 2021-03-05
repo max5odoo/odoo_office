@@ -4,6 +4,9 @@ from odoo.exceptions import UserError, ValidationError
 import datetime, time
 from datetime import timedelta, date
 import math
+import sys
+
+sys.setrecursionlimit(2000)
 
 
 class Students(models.Model):
@@ -12,7 +15,7 @@ class Students(models.Model):
     _inherit = ['website.published.mixin', 'mail.thread', 'mail.activity.mixin']
     # _sql_constraints = [('unique_name', 'unique(name)', 'it already exits..')]
 
-    name = fields.Char('name', required=True)
+    name = fields.Char('name', required=False)
     address = fields.Char('address')
     rollno = fields.Integer('Roll No.')
     phoneno = fields.Char('mobile')
@@ -47,6 +50,13 @@ class Students(models.Model):
             else:
                 if len(str(self.phoneno).strip()) != 10:
                     raise ValidationError("mobile no. size must be 10.")
+
+    def name_get(self):
+        student_name_gets = []
+        for rec in self:
+            name = f"{rec.name} ({rec.rollno}) "
+            student_name_gets.append((rec.id, name))
+        return student_name_gets
 
     # @api.constrains("name")
     # def search_name_student(self):
@@ -109,9 +119,24 @@ class Students(models.Model):
 
     # @api.model
     # def create(self, values):
-    #     student_data=super(Students, self).create(values)
-    #     print(f"\n\nstudent - - {student_data}\n\n\n")
-    #     return student_data
+    #     z=self.env['student.student'].create(
+    #         {
+    #
+    #
+    #         }
+    #     )
+    #     return z
+
+    @api.model
+    def create(self, values):
+        student_data = super(Students, self).create({
+            'name': values["name"],
+            'tasks_id': [(0, 0, {
+                'task_name': 'dfbguiwfrwfhewbnofnhewvofnvie',
+            })]
+        })
+        print(f"\n\nstudent - - {student_data}\n\n\n")
+        return student_data
 
     # @api.model
     # def create(self, vals):
@@ -124,12 +149,13 @@ class Students(models.Model):
     #     print('hello')
     #     return clg_student
     #
-    # def write(self, vals):
-    #     vals['student_email'] = 'aktiv@gmail.com'
-    #     clg_up_student = super(Students, self).write(vals)
-    #     print(f"\n\n\n\n{clg_up_student}\n\n\n\n\n")
-    #     return clg_up_student
-    #
+
+    def write(self, vals):
+        vals['student_email'] = 'aktiv@gmail.com'
+        clg_up_student = super(Students, self).write(vals)
+        print(f"\n\n\n\nthis is write method...{clg_up_student}\n\n\n\n\n")
+        return clg_up_student
+
     def search_func(self):
         # search
         # search_res = self.env['student.student'].search(
@@ -155,8 +181,3 @@ class Students(models.Model):
 
             'type': 'ir.actions.act_window',  # this is predefined in odoo for redirection purpose aa fixed hoyy hamesha
         }
-
-
-    @api.model
-    def create(self, values):
-        return self.env
