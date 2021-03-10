@@ -14,7 +14,7 @@
                         <field name="user_name"/>
                         <field name="password"/>
                         <field name="name"/>
-                        <field name="password_search"/>
+
                     </group>
                     </sheet>
 

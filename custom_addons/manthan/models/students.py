@@ -36,6 +36,8 @@ class Students(models.Model):
     pin_code = fields.Integer(string='Pincode ')
     pin_code_area = fields.Char('Area', compute='area_student')
     students_professor_id = fields.Char('professor id', compute='professor_unique_id')
+    student_tasks_ids= tax_ids = fields.Many2many('tasks.tasks', 'student_student_task',
+        'student_id', 'tasks_id', string='student tasks')
 
     # task_name = fields.One2many('tasks.tasks', 'student_id', string='Task names')
     # tasks_name = fields.Many2one('task.task', string='Task names')
@@ -52,8 +54,10 @@ class Students(models.Model):
                     raise ValidationError("mobile no. size must be 10.")
 
     def name_get(self):
+
         student_name_gets = []
         for rec in self:
+            print(f"\n\n{rec.professor_choose.name}\n\n\n")
             name = f"{rec.name} ({rec.rollno}) "
             student_name_gets.append((rec.id, name))
         return student_name_gets
@@ -72,7 +76,7 @@ class Students(models.Model):
     #             'pro_id': 505,
     #         })
     #     else:
-    #         print("\n\n\n\n else ma bhi jay che\n\n\n")
+    #         print("\n\n\n\n else ma bhi jay che\n\n\n")s
 
     # @api.constrains("name")
     # def unique_name(self):
@@ -127,16 +131,16 @@ class Students(models.Model):
     #     )
     #     return z
 
-    @api.model
-    def create(self, values):
-        student_data = super(Students, self).create({
-            'name': values["name"],
-            'tasks_id': [(0, 0, {
-                'task_name': 'dfbguiwfrwfhewbnofnhewvofnvie',
-            })]
-        })
-        print(f"\n\nstudent - - {student_data}\n\n\n")
-        return student_data
+    # @api.model
+    # def create(self, values):
+    #     student_data = super(Students, self).create({
+    #         'name': values["name"],
+    #         'tasks_id': [(0, 0, {
+    #             'task_name': 'dfbguiwfrwfhewbnofnhewvofnvie',
+    #         })]
+    #     })
+    #     print(f"\n\nstudent - - {student_data}\n\n\n")
+    #     return student_data
 
     # @api.model
     # def create(self, vals):
@@ -148,13 +152,28 @@ class Students(models.Model):
     #     clg_student.write(vals)
     #     print('hello')
     #     return clg_student
+    # #
+    # def write(self, vals):
+    #     # vals['email_id'] = 'aktiv_new@gmail.com'
+    #     # professor_obj = super(Professors, self).search([])
+    #     print(f"\n\n\n{super(Students, self).read()}\n\n\n")
+    #     subject_records = super(Students, self).read(['tasks_id'])
+    #     print(f"\n\n\n\n{subject_records[0]['tasks_id']}\n\n\n\n")
     #
+    #     subject_lines_ids = subject_records[0]['tasks_id']
+    #     single_sub_id = subject_lines_ids[0]['tasks_id'][0]
+    #     # write into
+    #     return self.env["student.student"].browse(
+    #         [single_sub_id]).write({
+    #         'task_name': 'master is always ..',
+    #
+    #     })
 
-    def write(self, vals):
-        vals['student_email'] = 'aktiv@gmail.com'
-        clg_up_student = super(Students, self).write(vals)
-        print(f"\n\n\n\nthis is write method...{clg_up_student}\n\n\n\n\n")
-        return clg_up_student
+    # def write(self, vals):
+    #     vals['student_email'] = 'aktiv@gmail.com'
+    #     clg_up_student = super(Students, self).write(vals)
+    #     print(f"\n\n\n\nthis is write method...{clg_up_student}\n\n\n\n\n")
+    #     return clg_up_student
 
     def search_func(self):
         # search

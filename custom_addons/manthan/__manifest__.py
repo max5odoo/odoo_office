@@ -24,11 +24,13 @@
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
+        # 'security/ir.model.access.csv',
+        'data/student_data.xml',
         'views/students.xml',
         'views/professor.xml',
         'views/button_prac.xml',
-        'views/sale_order_updates.xml'
+        'views/sale_order_updates.xml',
+        'views/task.xml',
 
 
     ],

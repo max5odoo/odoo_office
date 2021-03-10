@@ -6,6 +6,7 @@ class Professor(models.Model):
     _name = 'professor.professor'
     _description = 'professor description'
 
+
     name = fields.Char('name')
     address = fields.Char('address')
     pro_id = fields.Integer('pro_id')
@@ -13,6 +14,7 @@ class Professor(models.Model):
     male = fields.Boolean()
     female = fields.Boolean()
     company_name = fields.Char("Company Name", placeholder="enter the comapny name")
+
 
     @api.constrains("phoneno")
     def check_mobile_no(self):
